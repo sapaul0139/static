@@ -21,3 +21,12 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           source: "webstatic.html"
           target: "/var/www/html"
+      - name: Restart Apache on EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+         host: 13.61.141.206
+         username: ubuntu
+         key: ${{ secrets.EC2_SSH_KEY }}
+         script: |
+          sudo systemctl restart apache2
+          sudo systemctl status apache2 --no-pager    
